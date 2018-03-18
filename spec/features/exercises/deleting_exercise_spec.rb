@@ -17,8 +17,11 @@ RSpec.feature "Deleting Exercise" do
     click_link "My Lounge"
     
     path = "/users/#{@owner.id}/exercises/#{@owner_exercise.id}"
+    # puts "----"+ path
     # link = "//a[contains(@href,\'#{path}\') and .//text()='Destroy']"
     link = "//a[contains(@href,\'#{path}\') and contains(text(),'Destroy')]"
+
+
     find(:xpath, link).click
     
     expect(page).to have_content("Exercise has been deleted")
