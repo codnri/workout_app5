@@ -8,6 +8,7 @@ class FriendshipsController < ApplicationController
     @exercises = @friend.exercises
   end
 
+
   def create
     friend = User.find(params[:friend_id])
     params[:user_id] = current_user.id
