@@ -5,7 +5,9 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
          
   has_many :exercises
-  
+  has_many :friendships
+  has_many :friends, through: :friendships, class_name: "User"
+
   validates :first_name, presence: true
   validates :last_name, presence: true
   
@@ -16,7 +18,7 @@ class User < ApplicationRecord
     [first_name,last_name].join(" ")
   end
   
- def self.search_by_name(name)
+  def self.search_by_name(name)
     names_array = name.split(' ')
 
     if names_array.size == 1
@@ -30,4 +32,11 @@ class User < ApplicationRecord
     end
   end
   
+
+  
+  def follows_or_same?(new_friend)
+    friendships.map(&:friend).include?(new_friend) || self == new_friend
+  end
+  
+
 end
